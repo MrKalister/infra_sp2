@@ -15,43 +15,58 @@
 
 ## Установка пректа:
 Все команды выполняются в командной строке.
-*Клонировать репозиторий:*
 
+#### Клонировать репозиторий:
 * Вариант 1. По SSH:
 ```
 git clone git@github.com:MrKalister/infra_sp2.git
 ```
-
 * Вариант 2. По HTTPS:
 ```
 git clone https://github.com/MrKalister/infra_sp2.git
 ```
-*Перейти в проект:*
+#### Перейти в проект:
 ```
 cd infra
 ```
-*Создать и запустить контейнеры:*
-
+#### Добавить пользователя в группу docker:
 ```
-sudo docker-compose up
+sudo usermod -aG docker username
 ```
-
-*Выполнить миграции:*
-
+#### Убедитесь что пользователь добавлен в группу:
 ```
-sudo docker-compose exec web python manage.py migrate
+groups
 ```
-
-*Создать администратора:*
-
+#### Заполнить шаблон и переименовать env-файл:
 ```
-sudo docker-compose exec web python manage.py createsuperuser
+nano .env_example
 ```
-
-*Загрузить тестовую базу данных:*
 ```
-sudo docker-compose exec web python manage.py loaddata fixtures.json
+mv .env_example .env
 ```
+#### Создать и запустить контейнеры:
+```
+docker-compose up
+```
+#### Выполнить миграции:
+```
+docker-compose exec web python manage.py migrate
+```
+#### Создать администратора:
+```
+docker-compose exec web python manage.py createsuperuser
+```
+#### Загрузить тестовую базу данных:
+```
+docker-compose exec web python manage.py loaddata fixtures.json
+```
+#### Проверить, что проект запущен:
+1. Ввести в браузере:
+```
+localhost/admin
+```
+2. Войти в учетую запись администратора
+3. Нажмите Titles и удостоверьтесь в наличие записей.
 
 ## Использование пректа:
 
@@ -63,7 +78,7 @@ sudo docker-compose exec web python manage.py loaddata fixtures.json
 
 Так же пользователя может создать и админ, в этом случае, поле confirmation_code у пользователя будет пустое, при отправке POST-запроса с параметрами email и username этого пользователя на эндпоинт /api/v1/auth/signup/, бэкенд создаст код потверждения (confirmation_code) и также отправит письмо с кодом подтверждения (confirmation_code) на указанный адрес email.
 
-### Примеры запросов:
+#### Примеры запросов:
 
 Получение списка всех произведений:
 GET http://127.0.0.1:8000/api/v1/titles/

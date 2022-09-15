@@ -43,7 +43,7 @@ nano .env_example
 ```
 #### Переименовать env-файл:
 ```
-mv .env_example .env
+cp .env_example .env
 ```
 #### Создать и запустить контейнеры:
 ```
